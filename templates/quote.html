@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{%block head %}
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <script>
+
+            function quote()
+            {
+                $.getJSON("/getquote", {symbol: $("#symbol").val()}, function(data) {
+                    $("#quote").html(`A share of ${data.symbol} costs $${data.price}.`);
+                    $("#symbol").val("");
+                });
+            }
+
+        </script>
+{% endblock %}
+
+{% block main %}
+
+    <body>
+        <form onsubmit="quote(); return false;">
+            <input autocomplete="off" id="symbol" placeholder="Symbol" type="text"/>
+            <input type="submit" value="Get Quote"/>
+        </form>
+        <p id="quote"></p>
+    </body>
+</html>
+
+{% endblock %}
